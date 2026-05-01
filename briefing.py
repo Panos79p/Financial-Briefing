@@ -85,7 +85,7 @@ def build_html_email(data):
         stories_html += f"""<div style="{border}padding-left:14px;border-left:3px solid #e5e7eb;">
 <div style="font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;font-family:monospace;color:{s.get('tag_color','#666')};margin-bottom:4px;">{s.get('tag','')}</div>
 <div style="font-family:Georgia,serif;font-size:15px;font-weight:700;color:#111827;margin:0 0 5px;line-height:1.35;">{s.get('headline','')}</div>
-<div style="font-size:13px;color:#6b7280;line-height:1.65;">{s.get('body','')}</div>
+<div style="font-size:13px;color:#1f2937;line-height:1.65;">{s.get('body','')}</div>
 </div>"""
 
     week_date = data.get("week_date", datetime.date.today().strftime("%d %B %Y"))
@@ -143,7 +143,7 @@ def build_html_email(data):
 <div style="font-size:10px;color:#9ca3af;font-family:monospace;">10Y UST</div>
 <div style="font-size:16px;font-weight:500;color:#111827;margin:3px 0;">{ust.get("price","—")}%</div>
 <div style="font-size:11px;font-family:monospace;color:#9ca3af;">+1bp</div>
-<div style="font-size:10px;font-family:monospace;font-weight:500;margin-top:3px;color:#9ca3af;">{ust.get("ytd_note","—")}</div>
+<div style="font-size:10px;font-family:monospace;font-weight:500;margin-top:3px;color:#1f2937;">{ust.get("ytd_note","—")}</div>
 </td><td width="2%"></td>
 <td width="19%" style="background:#f9fafb;border-radius:8px;padding:10px;border:1px solid #e5e7eb;vertical-align:top;">
 <div style="font-size:10px;color:#BA7517;font-family:monospace;">GOLD</div>
@@ -157,27 +157,27 @@ def build_html_email(data):
 <div style="font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#9ca3af;margin-bottom:10px;font-family:monospace;">Macro snapshot</div>
 <table width="100%"><tr>
 <td width="23%" style="background:#f9fafb;border-radius:8px;padding:10px;border:1px solid #e5e7eb;vertical-align:top;">
-<div style="font-size:11px;color:#9ca3af;font-family:monospace;margin-bottom:3px;">Fed funds rate</div>
+<div style="font-size:11px;color:#1f2937;font-family:monospace;margin-bottom:3px;">Fed funds rate</div>
 <div style="font-size:18px;font-weight:500;color:#111827;">{fed.get("value","—")}</div>
-<div style="font-size:11px;color:#9ca3af;margin-top:2px;">{fed.get("note","—")}</div>
-<div style="font-size:11px;font-family:monospace;font-weight:500;margin-top:3px;color:#9ca3af;">{fed.get("context","—")}</div>
+<div style="font-size:11px;color:#1f2937;margin-top:2px;">{fed.get("note","—")}</div>
+<div style="font-size:11px;font-family:monospace;font-weight:500;margin-top:3px;color:#1f2937;">{fed.get("context","—")}</div>
 </td><td width="2%"></td>
 <td width="23%" style="background:#f9fafb;border-radius:8px;padding:10px;border:1px solid #e5e7eb;vertical-align:top;">
-<div style="font-size:11px;color:#9ca3af;font-family:monospace;margin-bottom:3px;">VIX · Fear Index</div>
+<div style="font-size:11px;color:#1f2937;font-family:monospace;margin-bottom:3px;">VIX · Fear Index</div>
 <div style="font-size:18px;font-weight:500;color:#111827;">{vix.get("value","—")}</div>
-<div style="font-size:11px;color:#9ca3af;margin-top:2px;">{vix.get("change_pct","—")}% today</div>
+<div style="font-size:11px;color:#1f2937;margin-top:2px;">{vix.get("change_pct","—")}% today</div>
 <div style="font-size:11px;font-family:monospace;font-weight:600;margin-top:3px;color:{color(vix.get('ytd_pct','0'), invert=True)};">YTD {vix.get("ytd_pct","—")}% · {vix_mood}</div>
 </td><td width="2%"></td>
 <td width="23%" style="background:#f9fafb;border-radius:8px;padding:10px;border:1px solid #e5e7eb;vertical-align:top;">
-<div style="font-size:11px;color:#9ca3af;font-family:monospace;margin-bottom:3px;">Bitcoin</div>
+<div style="font-size:11px;color:#1f2937;font-family:monospace;margin-bottom:3px;">Bitcoin</div>
 <div style="font-size:18px;font-weight:500;color:#111827;">${btc.get("price","—")}</div>
-<div style="font-size:11px;color:#9ca3af;margin-top:2px;">{btc.get("change_pct","—")}% today</div>
+<div style="font-size:11px;color:#1f2937;margin-top:2px;">{btc.get("change_pct","—")}% today</div>
 <div style="font-size:11px;font-family:monospace;font-weight:600;margin-top:3px;color:{color(btc.get('ytd_pct','0'))};">YTD {btc.get("ytd_pct","—")}%</div>
 </td><td width="2%"></td>
 <td width="23%" style="background:#f9fafb;border-radius:8px;padding:10px;border:1px solid #e5e7eb;vertical-align:top;">
 <div style="font-size:11px;color:#185FA5;font-family:monospace;margin-bottom:3px;">EUR / USD</div>
 <div style="font-size:18px;font-weight:500;color:#111827;">{eur.get("rate","—")}</div>
-<div style="font-size:11px;color:#9ca3af;margin-top:2px;">{eur.get("change_pct","—")}% today</div>
+<div style="font-size:11px;color:#1f2937;margin-top:2px;">{eur.get("change_pct","—")}% today</div>
 <div style="font-size:11px;font-family:monospace;font-weight:600;margin-top:3px;color:{color(eur.get('ytd_pct','0'))};">YTD {eur.get("ytd_pct","—")}%</div>
 </td>
 </tr></table></td></tr>
