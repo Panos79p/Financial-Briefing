@@ -1,0 +1,26 @@
+name: Weekly Financial Briefing
+
+on:
+  schedule:
+    - cron: '0 15 * * 5'
+  workflow_dispatch:
+
+jobs:
+  send-briefing:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install anthropic
+      - name: Run briefing script
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          EMAIL_SENDER:      ${{ secrets.EMAIL_SENDER }}
+          EMAIL_PASSWORD:    ${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_RECIPIENT:   ${{ secrets.EMAIL_RECIPIENT }}
+          SMTP_HOST:         smtp.gmail.com
+          SMTP_PORT:         "587"
+        run: python briefing.py
