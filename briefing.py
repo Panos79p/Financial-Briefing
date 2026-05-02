@@ -114,47 +114,47 @@ def build_html_email(data):
 <tr><td style="padding:28px 32px 20px;border-bottom:2px solid #111827;">
 <table width="100%"><tr>
 <td><div style="font-family:Georgia,serif;font-size:26px;font-weight:700;color:#111827;">Weekly Financial Briefing</div>
-<div style="font-size:12px;color:#9ca3af;margin-top:5px;font-family:monospace;">Week of {week_date}</div></td>
-<td align="right"><div style="font-size:11px;color:#9ca3af;font-family:monospace;">COMPILED FRIDAYS</div></td>
+<div style="font-size:12px;color:#1f2937;margin-top:5px;font-family:monospace;">Week of {week_date}</div></td>
+<td align="right"><div style="font-size:11px;color:#1f2937;font-family:monospace;">COMPILED FRIDAYS</div></td>
 </tr></table></td></tr>
 
 <tr><td style="padding:20px 32px 0;">
-<div style="font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#9ca3af;margin-bottom:10px;font-family:monospace;">Markets at a glance</div>
+<div style="font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#1f2937;margin-bottom:10px;font-family:monospace;">Markets at a glance</div>
 <table width="100%"><tr>
 <td width="19%" style="background:#f9fafb;border-radius:8px;padding:10px;border:1px solid #e5e7eb;vertical-align:top;">
-<div style="font-size:10px;color:#9ca3af;font-family:monospace;">S&amp;P 500</div>
+<div style="font-size:10px;color:#1f2937;font-family:monospace;">S&amp;P 500</div>
 <div style="font-size:16px;font-weight:500;color:#111827;margin:3px 0;">{sp.get("price","—")}</div>
-<div style="font-size:11px;font-family:monospace;color:#666;">{sp.get("change_pct","—")}%</div>
+<div style="font-size:11px;font-family:monospace;color:#1f2937;">{sp.get("change_pct","—")}%</div>
 <div style="font-size:10px;font-family:monospace;font-weight:600;margin-top:3px;color:{color(sp.get('ytd_pct','0'))}">{ytd(sp.get('ytd_pct',''))}</div>
 </td><td width="2%"></td>
 <td width="19%" style="background:#f9fafb;border-radius:8px;padding:10px;border:1px solid #e5e7eb;vertical-align:top;">
-<div style="font-size:10px;color:#9ca3af;font-family:monospace;">NASDAQ</div>
+<div style="font-size:10px;color:#1f2937;font-family:monospace;">NASDAQ</div>
 <div style="font-size:16px;font-weight:500;color:#111827;margin:3px 0;">{nas.get("price","—")}</div>
-<div style="font-size:11px;font-family:monospace;color:#666;">{nas.get("change_pct","—")}%</div>
+<div style="font-size:11px;font-family:monospace;color:#1f2937;">{nas.get("change_pct","—")}%</div>
 <div style="font-size:10px;font-family:monospace;font-weight:600;margin-top:3px;color:{color(nas.get('ytd_pct','0'))}">{ytd(nas.get('ytd_pct',''))}</div>
 </td><td width="2%"></td>
 <td width="19%" style="background:#f9fafb;border-radius:8px;padding:10px;border:1px solid #e5e7eb;vertical-align:top;">
-<div style="font-size:10px;color:#9ca3af;font-family:monospace;">BRENT</div>
+<div style="font-size:10px;color:#1f2937;font-family:monospace;">BRENT</div>
 <div style="font-size:16px;font-weight:500;color:#111827;margin:3px 0;">${br.get("price","—")}</div>
-<div style="font-size:11px;font-family:monospace;color:#666;">{br.get("change_pct","—")}%</div>
+<div style="font-size:11px;font-family:monospace;color:#1f2937;">{br.get("change_pct","—")}%</div>
 <div style="font-size:10px;font-family:monospace;font-weight:600;margin-top:3px;color:{color(br.get('ytd_pct','0'))}">{ytd(br.get('ytd_pct',''))}</div>
 </td><td width="2%"></td>
 <td width="19%" style="background:#f9fafb;border-radius:8px;padding:10px;border:1px solid #e5e7eb;vertical-align:top;">
-<div style="font-size:10px;color:#9ca3af;font-family:monospace;">10Y UST</div>
+<div style="font-size:10px;color:#1f2937;font-family:monospace;">10Y UST</div>
 <div style="font-size:16px;font-weight:500;color:#111827;margin:3px 0;">{ust.get("price","—")}%</div>
-<div style="font-size:11px;font-family:monospace;color:#9ca3af;">+1bp</div>
+<div style="font-size:11px;font-family:monospace;color:#1f2937;">+1bp</div>
 <div style="font-size:10px;font-family:monospace;font-weight:500;margin-top:3px;color:#1f2937;">{ust.get("ytd_note","—")}</div>
 </td><td width="2%"></td>
 <td width="19%" style="background:#f9fafb;border-radius:8px;padding:10px;border:1px solid #e5e7eb;vertical-align:top;">
 <div style="font-size:10px;color:#BA7517;font-family:monospace;">GOLD</div>
 <div style="font-size:16px;font-weight:500;color:#BA7517;margin:3px 0;">${go.get("price","—")}</div>
-<div style="font-size:11px;font-family:monospace;color:#666;">{go.get("change_pct","—")}%</div>
+<div style="font-size:11px;font-family:monospace;color:#1f2937;">{go.get("change_pct","—")}%</div>
 <div style="font-size:10px;font-family:monospace;font-weight:600;margin-top:3px;color:{color(go.get('ytd_pct','0'))}">{ytd(go.get('ytd_pct',''))}</div>
 </td>
 </tr></table></td></tr>
 
 <tr><td style="padding:20px 32px 0;">
-<div style="font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#9ca3af;margin-bottom:10px;font-family:monospace;">Macro snapshot</div>
+<div style="font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#1f2937;margin-bottom:10px;font-family:monospace;">Macro snapshot</div>
 <table width="100%"><tr>
 <td width="23%" style="background:#f9fafb;border-radius:8px;padding:10px;border:1px solid #e5e7eb;vertical-align:top;">
 <div style="font-size:11px;color:#1f2937;font-family:monospace;margin-bottom:3px;">Fed funds rate</div>
@@ -185,7 +185,7 @@ def build_html_email(data):
 <tr><td style="padding:20px 32px 0;"><hr style="border:none;border-top:1px solid #e5e7eb;margin:0;"></td></tr>
 
 <tr><td style="padding:16px 32px 0;">
-<div style="font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#9ca3af;margin-bottom:14px;font-family:monospace;">Top stories</div>
+<div style="font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#1f2937;margin-bottom:14px;font-family:monospace;">Top stories</div>
 {stories_html}
 </td></tr>
 
@@ -198,8 +198,8 @@ def build_html_email(data):
 <tr><td style="padding:0 32px 24px;">
 <hr style="border:none;border-top:1px solid #e5e7eb;margin:0 0 12px;">
 <table width="100%"><tr>
-<td style="font-size:11px;color:#9ca3af;font-family:monospace;">Sources: {sources}</td>
-<td align="right" style="font-size:11px;color:#9ca3af;font-family:monospace;">Auto-generated every Friday</td>
+<td style="font-size:11px;color:#1f2937;font-family:monospace;">Sources: {sources}</td>
+<td align="right" style="font-size:11px;color:#1f2937;font-family:monospace;">Auto-generated every Friday</td>
 </tr></table></td></tr>
 
 </table></td></tr></table>
