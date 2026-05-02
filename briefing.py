@@ -121,28 +121,28 @@ def build_html_email(data):
 </tr></table></td></tr>
 
 <tr><td style="padding:20px 32px 0;">
-<div style="font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#1f2937 !important;margin-bottom:10px;font-family:monospace;">Markets at a glance</div>
+<div style="font-size:13px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#111827 !important;margin-bottom:10px;font-family:monospace;">Markets at a glance</div>
 <table width="100%"><tr>
 <td width="19%" style="background:#f9fafb;border-radius:8px;padding:10px;border:1px solid #e5e7eb;vertical-align:top;">
-<div style="font-size:10px;color:#1f2937 !important;font-family:monospace;">S&amp;P 500</div>
+<div style="font-size:12px;font-weight:600;color:#1f2937 !important;font-family:monospace;">S&amp;P 500</div>
 <div style="font-size:16px;font-weight:500;color:#111827 !important;margin:3px 0;">{sp.get("price","—")}</div>
 <div style="font-size:11px;font-family:monospace;color:#1f2937 !important;">{sp.get("change_pct","—")}%</div>
 <div style="font-size:10px;font-family:monospace;font-weight:600;margin-top:3px;color:{color(sp.get('ytd_pct','0'))}">{ytd(sp.get('ytd_pct',''))}</div>
 </td><td width="2%"></td>
 <td width="19%" style="background:#f9fafb;border-radius:8px;padding:10px;border:1px solid #e5e7eb;vertical-align:top;">
-<div style="font-size:10px;color:#1f2937 !important;font-family:monospace;">NASDAQ</div>
+<div style="font-size:12px;font-weight:600;color:#1f2937 !important;font-family:monospace;">NASDAQ</div>
 <div style="font-size:16px;font-weight:500;color:#111827 !important;margin:3px 0;">{nas.get("price","—")}</div>
 <div style="font-size:11px;font-family:monospace;color:#1f2937 !important;">{nas.get("change_pct","—")}%</div>
 <div style="font-size:10px;font-family:monospace;font-weight:600;margin-top:3px;color:{color(nas.get('ytd_pct','0'))}">{ytd(nas.get('ytd_pct',''))}</div>
 </td><td width="2%"></td>
 <td width="19%" style="background:#f9fafb;border-radius:8px;padding:10px;border:1px solid #e5e7eb;vertical-align:top;">
-<div style="font-size:10px;color:#1f2937 !important;font-family:monospace;">BRENT</div>
+<div style="font-size:12px;font-weight:600;color:#1f2937 !important;font-family:monospace;">BRENT</div>
 <div style="font-size:16px;font-weight:500;color:#111827 !important;margin:3px 0;">${br.get("price","—")}</div>
 <div style="font-size:11px;font-family:monospace;color:#1f2937 !important;">{br.get("change_pct","—")}%</div>
 <div style="font-size:10px;font-family:monospace;font-weight:600;margin-top:3px;color:{color(br.get('ytd_pct','0'))}">{ytd(br.get('ytd_pct',''))}</div>
 </td><td width="2%"></td>
 <td width="19%" style="background:#f9fafb;border-radius:8px;padding:10px;border:1px solid #e5e7eb;vertical-align:top;">
-<div style="font-size:10px;color:#1f2937 !important;font-family:monospace;">10Y UST</div>
+<div style="font-size:12px;font-weight:600;color:#1f2937 !important;font-family:monospace;">10Y UST</div>
 <div style="font-size:16px;font-weight:500;color:#111827 !important;margin:3px 0;">{ust.get("price","—")}%</div>
 <div style="font-size:11px;font-family:monospace;color:#1f2937 !important;">+1bp</div>
 <div style="font-size:10px;font-family:monospace;font-weight:500;margin-top:3px;color:#1f2937 !important;">{ust.get("ytd_note","—")}</div>
@@ -156,22 +156,22 @@ def build_html_email(data):
 </tr></table></td></tr>
 
 <tr><td style="padding:20px 32px 0;">
-<div style="font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#1f2937 !important;margin-bottom:10px;font-family:monospace;">Macro snapshot</div>
+<div style="font-size:13px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#111827 !important;margin-bottom:10px;font-family:monospace;">Macro snapshot</div>
 <table width="100%"><tr>
 <td width="23%" style="background:#f9fafb;border-radius:8px;padding:10px;border:1px solid #e5e7eb;vertical-align:top;">
-<div style="font-size:11px;color:#1f2937 !important;font-family:monospace;margin-bottom:3px;">Fed funds rate</div>
+<div style="font-size:12px;font-weight:600;color:#1f2937 !important;font-family:monospace;margin-bottom:3px;">Fed funds rate</div>
 <div style="font-size:18px;font-weight:500;color:#111827 !important;">{fed.get("value","—")}</div>
 <div style="font-size:11px;color:#1f2937 !important;margin-top:2px;">{fed.get("note","—")}</div>
 <div style="font-size:11px;font-family:monospace;font-weight:500;margin-top:3px;color:#1f2937 !important;">{fed.get("context","—")}</div>
 </td><td width="2%"></td>
 <td width="23%" style="background:#f9fafb;border-radius:8px;padding:10px;border:1px solid #e5e7eb;vertical-align:top;">
-<div style="font-size:11px;color:#1f2937 !important;font-family:monospace;margin-bottom:3px;">VIX · Fear Index</div>
+<div style="font-size:12px;font-weight:600;color:#1f2937 !important;font-family:monospace;margin-bottom:3px;">VIX · Fear Index</div>
 <div style="font-size:18px;font-weight:500;color:#111827 !important;">{vix.get("value","—")}</div>
 <div style="font-size:11px;color:#1f2937 !important;margin-top:2px;">{vix.get("change_pct","—")}% today</div>
 <div style="font-size:11px;font-family:monospace;font-weight:600;margin-top:3px;color:{color(vix.get('ytd_pct','0'), invert=True)};">YTD {vix.get("ytd_pct","—")}% · {vix_mood}</div>
 </td><td width="2%"></td>
 <td width="23%" style="background:#f9fafb;border-radius:8px;padding:10px;border:1px solid #e5e7eb;vertical-align:top;">
-<div style="font-size:11px;color:#1f2937 !important;font-family:monospace;margin-bottom:3px;">Bitcoin</div>
+<div style="font-size:12px;font-weight:600;color:#1f2937 !important;font-family:monospace;margin-bottom:3px;">Bitcoin</div>
 <div style="font-size:18px;font-weight:500;color:#111827 !important;">${btc.get("price","—")}</div>
 <div style="font-size:11px;color:#1f2937 !important;margin-top:2px;">{btc.get("change_pct","—")}% today</div>
 <div style="font-size:11px;font-family:monospace;font-weight:600;margin-top:3px;color:{color(btc.get('ytd_pct','0'))};">YTD {btc.get("ytd_pct","—")}%</div>
@@ -187,7 +187,7 @@ def build_html_email(data):
 <tr><td style="padding:20px 32px 0;"><hr style="border:none;border-top:1px solid #e5e7eb;margin:0;"></td></tr>
 
 <tr><td style="padding:16px 32px 0;">
-<div style="font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#1f2937 !important;margin-bottom:14px;font-family:monospace;">Top stories</div>
+<div style="font-size:13px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#111827 !important;margin-bottom:14px;font-family:monospace;">Top stories</div>
 {stories_html}
 </td></tr>
 
