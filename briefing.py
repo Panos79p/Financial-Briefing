@@ -44,7 +44,7 @@ def gather_market_data():
 5. Top 4 financial news stories this week
 6. What to watch in the coming week (upcoming events, data releases, earnings)
 
-Just tell me what you found in plain text. Be as specific as possible with numbers."""}]
+This briefing runs on Saturday mornings — use the most recent available data, typically Friday's closing prices. Just tell me what you found in plain text with specific numbers. Use Friday closing data if today is a weekend."""}]
     )
 
     raw_data = ""
@@ -283,4 +283,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
