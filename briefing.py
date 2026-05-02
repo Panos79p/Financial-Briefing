@@ -11,17 +11,27 @@ ANTHROPIC_API_KEY = os.environ["ANTHROPIC_API_KEY"]
 EMAIL_SENDER      = os.environ["EMAIL_SENDER"]
 EMAIL_PASSWORD    = os.environ["EMAIL_PASSWORD"]
 EMAIL_RECIPIENT   = os.environ["EMAIL_RECIPIENT"]
+EMAIL_BCC1        = os.environ.get("EMAIL_BCC1", "")
+EMAIL_BCC2        = os.environ.get("EMAIL_BCC2", "")
 SMTP_HOST         = os.environ.get("SMTP_HOST", "smtp.gmail.com")
 SMTP_PORT         = int(os.environ.get("SMTP_PORT", "587"))
 
 client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
 
 
+def get_week_range():
+    today = datetime.date.today()
+    days_since_saturday = (today.weekday() - 5) % 7
+    last_saturday = today - datetime.timedelta(days=days_since_saturday)
+    friday = last_saturday - datetime.timedelta(days=1)
+    monday = friday - datetime.timedelta(days=4)
+    return f"Week {monday.day}/{monday.month} - {friday.day:02d}/{friday.month}"
+
+
 def gather_market_data():
     print("Step 1: Searching the web for market data...")
     today = datetime.date.today().strftime("%d %B %Y")
 
-    # Step 1: Search with web tool, get raw text
     search_response = client.messages.create(
         model="claude-sonnet-4-6",
         max_tokens=3000,
@@ -29,7 +39,7 @@ def gather_market_data():
         messages=[{"role": "user", "content": f"""Today is {today}. Please search the web and find:
 1. Current prices for S&P500, Nasdaq, Brent crude, Gold, 10Y US Treasury, VIX, Bitcoin, EUR/USD
 2. Year-to-date % change for each
-3. Today's daily % change for each
+3. Latest daily % change for each
 4. Current Fed funds rate
 5. Top 4 financial news stories this week
 6. What to watch in the coming week (upcoming events, data releases, earnings)
@@ -44,7 +54,6 @@ Just tell me what you found in plain text. Be as specific as possible with numbe
 
     print("Step 2: Formatting data as JSON...")
 
-    # Step 2: Format as JSON in a separate call with no web tool
     format_response = client.messages.create(
         model="claude-sonnet-4-6",
         max_tokens=2000,
@@ -58,7 +67,6 @@ DATA:
 
 REQUIRED JSON STRUCTURE:
 {{
-  "week_date": "{today}",
   "tickers": {{
     "sp500":  {{"price": "7,200", "change_pct": "+0.5", "ytd_pct": "+4.0"}},
     "nasdaq": {{"price": "24,800", "change_pct": "+0.3", "ytd_pct": "+5.0"}},
@@ -73,10 +81,10 @@ REQUIRED JSON STRUCTURE:
     "eurusd":   {{"rate": "1.1700", "change_pct": "-0.2", "ytd_pct": "-0.2"}}
   }},
   "stories": [
-    {{"tag": "Fed / Rates",        "tag_color": "#185FA5", "headline": "...", "body": "2-3 sentences."}},
-    {{"tag": "Energy / Geopolitics","tag_color": "#D85A30", "headline": "...", "body": "2-3 sentences."}},
-    {{"tag": "Tech / AI",           "tag_color": "#533AB7", "headline": "...", "body": "2-3 sentences."}},
-    {{"tag": "Earnings",            "tag_color": "#1D9E75", "headline": "...", "body": "2-3 sentences."}}
+    {{"tag": "Fed / Rates",         "tag_color": "#185FA5", "headline": "...", "body": "2-3 sentences."}},
+    {{"tag": "Energy / Geopolitics", "tag_color": "#D85A30", "headline": "...", "body": "2-3 sentences."}},
+    {{"tag": "Tech / AI",            "tag_color": "#533AB7", "headline": "...", "body": "2-3 sentences."}},
+    {{"tag": "Earnings",             "tag_color": "#1D9E75", "headline": "...", "body": "2-3 sentences."}}
   ],
   "watch_text": "2-3 sentences on key events, data releases and risks in the week ahead.",
   "sources": "CNBC, Reuters, Yahoo Finance"
@@ -90,7 +98,6 @@ REQUIRED JSON STRUCTURE:
 
     print("Extracting JSON...")
 
-    # Extract JSON
     match = re.search(r'```json\s*([\s\S]*?)\s*```', result_text)
     if match:
         return json.loads(match.group(1).strip())
@@ -133,7 +140,7 @@ def build_html_email(data):
 <div style="font-size:13px;color:#1f2937;line-height:1.65;">{s.get('body','')}</div>
 </div>"""
 
-    week_date = data.get("week_date", datetime.date.today().strftime("%d %B %Y"))
+    week_date = get_week_range()
     watch     = data.get("watch_text", "")
     sources   = data.get("sources", "CNBC, Reuters, Yahoo Finance")
 
@@ -158,7 +165,7 @@ def build_html_email(data):
 
 <tr><td style="padding:28px 32px 20px;border-bottom:2px solid #111827;">
 <div style="font-family:Georgia,serif;font-size:26px;font-weight:700;color:#111827;">Weekly Market's Briefing</div>
-<div style="font-size:12px;color:#555;margin-top:5px;font-family:monospace;">Week of {week_date}</div>
+<div style="font-size:12px;color:#555;margin-top:5px;font-family:monospace;">{week_date}</div>
 </td></tr>
 
 <tr><td style="padding:20px 32px 0;">
@@ -240,10 +247,8 @@ def build_html_email(data):
 
 <tr><td style="padding:0 32px 24px;">
 <hr style="border:none;border-top:1px solid #e5e7eb;margin:0 0 12px;">
-<table width="100%"><tr>
-<td style="font-size:11px;color:#555;font-family:monospace;">Sources: {sources}</td>
-<td align="right" style="font-size:11px;color:#555;font-family:monospace;">Auto-generated every Saturday</td>
-</tr></table></td></tr>
+<div style="font-size:11px;color:#555;font-family:monospace;">Sources: {sources}</div>
+</td></tr>
 
 </table></td></tr></table>
 </body></html>"""
@@ -255,11 +260,15 @@ def send_email(html_content, week_date):
     msg["Subject"] = f"📊 Weekly Market's Briefing — {week_date}"
     msg["From"]    = EMAIL_SENDER
     msg["To"]      = EMAIL_RECIPIENT
+    bcc_list = [b for b in [EMAIL_BCC1, EMAIL_BCC2] if b]
+    if bcc_list:
+        msg["Bcc"] = ", ".join(bcc_list)
     msg.attach(MIMEText(html_content, "html"))
     with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
         server.starttls()
         server.login(EMAIL_SENDER, EMAIL_PASSWORD)
-        server.sendmail(EMAIL_SENDER, EMAIL_RECIPIENT, msg.as_string())
+        all_recipients = [EMAIL_RECIPIENT] + [b for b in [EMAIL_BCC1, EMAIL_BCC2] if b]
+        server.sendmail(EMAIL_SENDER, all_recipients, msg.as_string())
     print("✅ Email sent successfully.")
 
 
@@ -267,7 +276,7 @@ def main():
     print(f"Starting Weekly Market's Briefing — {datetime.date.today()}")
     data      = gather_market_data()
     html      = build_html_email(data)
-    week_date = data.get("week_date", datetime.date.today().strftime("%d %B %Y"))
+    week_date = get_week_range()
     send_email(html, week_date)
     print("Done.")
 
