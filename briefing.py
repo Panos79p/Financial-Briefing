@@ -26,14 +26,14 @@ def gather_market_data():
 S&P500, Nasdaq, Brent crude, Gold, 10Y Treasury, VIX, Bitcoin, EUR/USD — including the latest price, daily % change, and year-to-date % change.
 Also find the top 4 financial news stories this week.
 
-Use the most recent data available even if it is from the previous trading day. Do not refuse to answer — always return the JSON with the best available data.
+Use the most recent data available even if it is from the previous trading day. You MUST always return the JSON object — never refuse or explain why you cannot. If exact data is unavailable use your best estimate. Populate every field.
 
 Return ONLY valid JSON, no explanation, no markdown, no extra text. Use this exact structure:
 
 {{"week_date":"{today}","tickers":{{"sp500":{{"price":"7,200","change_pct":"+0.5","ytd_pct":"+4.0"}},"nasdaq":{{"price":"24,800","change_pct":"+0.3","ytd_pct":"+5.0"}},"brent":{{"price":"110.00","change_pct":"-1.0","ytd_pct":"+80"}},"ust10y":{{"price":"4.40","ytd_note":"Fed on hold"}},"gold":{{"price":"4,600","change_pct":"+0.5","ytd_pct":"+38"}}}},"macro":{{"fed_rate":{{"value":"3.50%","note":"On hold","context":"Powell last FOMC"}},"vix":{{"value":"18.00","change_pct":"-2.0","ytd_pct":"+20","label":"Below 20 · Calm"}},"bitcoin":{{"price":"76,000","change_pct":"+1.0","ytd_pct":"-19"}},"eurusd":{{"rate":"1.1700","change_pct":"-0.2","ytd_pct":"-0.2"}}}},"stories":[{{"tag":"Fed / Rates","tag_color":"#185FA5","headline":"Headline here","body":"2-3 sentence summary."}},{{"tag":"Energy / Geopolitics","tag_color":"#D85A30","headline":"Headline here","body":"2-3 sentence summary."}},{{"tag":"Tech / AI","tag_color":"#533AB7","headline":"Headline here","body":"2-3 sentence summary."}},{{"tag":"Earnings","tag_color":"#1D9E75","headline":"Headline here","body":"2-3 sentence summary."}}],"watch_text":"2-3 sentence summary of the week.","sources":"CNBC, Reuters, Yahoo Finance"}}"""
 
     response = client.messages.create(
-        model="claude-haiku-4-5-20251001",
+        model="claude-sonnet-4-6",
         max_tokens=2000,
         tools=[{"type": "web_search_20250305", "name": "web_search"}],
         messages=[{"role": "user", "content": prompt}]
